@@ -1,7 +1,7 @@
 import './globals.css'
-import { Inter } from 'next/font/google'
-
-const inter = Inter({ subsets: ['latin'] })
+import classes from "./page.module.css";
+import Image from "next/image";
+import backgroundImg from "../../public/img/home-bg.png";
 
 export const metadata = {
   title: 'npp-web-proto',
@@ -15,7 +15,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body>
+        <Image className={classes.background} src={backgroundImg} alt="img" fill />
+        {children}
+      </body>
     </html>
   )
 }
