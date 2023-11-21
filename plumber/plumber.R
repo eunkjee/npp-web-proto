@@ -52,7 +52,9 @@ function(req) {
     "IC_VVM_post",
     "IC_VVL_post",
     "IC_Total_Remained_Defect",
-    "IC_Defect_introduced_in_current"
+    "IC_Defect_introduced_in_current",
+    "generic_FSD",
+    "PFD"
   )
 
 
