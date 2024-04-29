@@ -38,3 +38,4 @@ jose==1.0.0
 passlib==1.7.4
 python-jose==3.3.0
 requests==2.31.0
+fitter==1.7.0
