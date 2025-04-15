@@ -7,6 +7,8 @@ import type { AppProps } from "next/app";
 import Head from "next/head";
 import "@/styles/globals.css";
 import { SettingsContextProvider } from "@/contexts/settingsContext";
+import { ResultContextProvider } from "@/contexts/ResultContext";
+import { DropdownValuesContextProvider } from "@/contexts/DropdownValuesContext";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -21,6 +23,8 @@ const queryClient = new QueryClient({
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
+      <DropdownValuesContextProvider>
+      <ResultContextProvider>
       <SettingsContextProvider>
         <Head>
           <title>PLC Software</title>
@@ -29,6 +33,8 @@ export default function App({ Component, pageProps }: AppProps) {
           <Component {...pageProps} />
         </Hydrate>
       </SettingsContextProvider>  
+      </ResultContextProvider>
+      </DropdownValuesContextProvider>
     </QueryClientProvider>
   );
 }

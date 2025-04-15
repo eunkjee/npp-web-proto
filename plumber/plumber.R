@@ -1,7 +1,8 @@
 # api.R
 library("plumber")
 library("jsonlite")
-library("R2WinBUGS")
+# library("R2WinBUGS")
+library("R2OpenBUGS")
 
 #* Estimate using WinBUGS
 #* @post /content/common
@@ -61,7 +62,6 @@ function(req) {
     "PFD"
   )
 
-  n.chains <- as.numeric(parsed_data$`n.chains`)
 
   FP <- as.numeric(parsed_data$`FP`$`FP Input`)
   data$SR_FP <- FP
@@ -208,32 +208,41 @@ function(req) {
   # print(data$SR_CD_state)
 
   # return(list("success"))
-
-  model.sim <- bugs(data,
-    inits = NULL, parameters, model.file,
-    n.chains, n.iter = 20000, n.burnin = 500, debug = FALSE, DIC = FALSE, n.thin = 1,
-    bugs.directory = "C:/WinBUGS14",
-    working.directory = "C:/WinBUGS14/bbn_Routput"
-  )
+  nChains <- as.numeric(parsed_data$`settings`$`nChains`)
+  nIter  <- as.numeric(parsed_data$`settings`$`nIter`)
+  nBurnin  <- as.numeric(parsed_data$`settings`$`nBurnin`)
+  nThin  <- as.numeric(parsed_data$`settings`$`nThin`)
+  autoCloseWinBugs  <- as.logical(parsed_data$`settings`$`autoCloseWinBugs`)
+  computeDIC  <- as.logical(parsed_data$`settings`$`computeDIC`)
+  winBugsExecutableDir  <- parsed_data$`settings`$`winBugsExecutableDir`
+  workingDir  <- parsed_data$`settings`$`workingDir`
+  
+  print("This is parsed_data[settings] : ")
+  print(parsed_data$`settings`)
+  model.sim <- bugs(data, inits=NULL, parameters, model.file,
+                    n.chains=nChains, n.iter=nIter, n.burnin=nBurnin, debug=autoCloseWinBugs, DIC=computeDIC, n.thin=nThin,
+                    OpenBUGS.pgm = "C:/Program Files (x86)/OpenBUGS/OpenBUGS323/OpenBUGS.exe",
+                    useWINE = FALSE,
+                    working.directory=workingDir)
 
   defect_introduced <- model.sim[["sims.list"]][["IC_Defect_introduced_in_current"]]
 
-  df.defect_introduced <- data.frame(value = defect_introduced, defect.type = "introduced")
+  df.defect_introduced <- data.frame(value=defect_introduced, defect.type="introduced")
   df.defect_introduced$iteration <- 1:nrow(df.defect_introduced)
 
   defect_remained <- model.sim[["sims.list"]][["IC_Total_Remained_Defect"]]
 
-  df.defect_remained <- data.frame(value = defect_remained, defect.type = "remained")
+  df.defect_remained <- data.frame(value=defect_remained, defect.type="remained")
   df.defect_remained$iteration <- 1:nrow(df.defect_remained)
 
   generic_fsd <- model.sim[["sims.list"]][["generic_FSD"]]
 
-  df.generic_fsd <- data.frame(value = generic_fsd, defect.type = "generic_FSD")
+  df.generic_fsd <- data.frame(value=generic_fsd, defect.type="generic_FSD")
   df.generic_fsd$iteration <- 1:nrow(df.generic_fsd)
 
   pfd <- model.sim[["sims.list"]][["PFD"]]
 
-  df.pfd <- data.frame(value = pfd, defect.type = "PFD")
+  df.pfd <- data.frame(value=pfd, defect.type="PFD")
   df.pfd$iteration <- 1:nrow(df.pfd)
 
 

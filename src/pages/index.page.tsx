@@ -12,6 +12,9 @@ import { ROUTER } from "@/constants/ROUTER";
 import { getCookie } from "@/utils/cookies";
 import { API_URL } from "@/constants/API_URL";
 import React from "react";
+import { useSettingsContext } from "@/contexts/settingsContext";
+import { useResultContext } from "@/contexts/ResultContext";
+import { useDropdownValuesContext } from "@/contexts/DropdownValuesContext";
 
 export default function Index() {
   const router = useRouter();
@@ -22,6 +25,12 @@ export default function Index() {
   const [isLoading, setIsLoading] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
+  const { nChains, nIter, nBurnin, autoCloseWinBugs, computeDIC, nThin, winBugsExecutableDir, workingDir ,
+        setnChains, setnIter, setnBurnin, setautoCloseWinBugs, setcomputeDIC, setnThin, setwinBugsExecutableDir, setworkingDir
+      } = useSettingsContext();
+
+  const {resultData, setResultData} = useResultContext();
+  const {DropdownValues, setDropdownValues} = useDropdownValuesContext();
 
   const loadingLayerStyle: React.CSSProperties = {
     position: 'fixed',
@@ -85,28 +94,10 @@ export default function Index() {
     }
   };
 
-  const initialTabData: Record<string, Record<string, string>> = {};
-  TABS.forEach((tab) => {
-    const tabData: Record<string, string> = {};
-    tab.children.forEach((item) => {
-      tabData[item.label] = item.values[0];
-    });
-    initialTabData[tab.label] = tabData;
-  });
 
-  const [allTabValues, setAllTabValues] = useState(initialTabData);
-  const [dropdownValues, setDropdownValues] = useState<Record<string, Record<string, string>>>(initialTabData);
+
+  // const [allTabValues, setAllTabValues] = useState(initialTabData);
   
-  const onChangeTabValue = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setAllTabValues((prevValues) => ({
-      ...prevValues,
-      [activeContent]: {
-        ...prevValues[activeContent],
-        [name]: value,
-      },
-    }));
-  };
 
   const onChangeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -138,17 +129,14 @@ export default function Index() {
       }
     }
 
-    data['n.chains'] = {}
-    data['n.chains']['n.chains.value'] = inputValues.nChains
-    console.log("This is n.chains = ")
-    console.log(inputValues.nChains)
-
     const fpInput = document.getElementById("FPInput") as HTMLInputElement;
     const fpInputValue = fpInput.value;
     data["FP"]["FP Input"] = fpInputValue;
 
-    console.log("This is settings:");
-
+    data['settings'] = {'nChains': nChains, 'nIter' : nIter, 'nBurnin': nBurnin, 'nThin':nThin,
+      'computeDIC':computeDIC, 'autoCloseWinBugs':autoCloseWinBugs, 'winBugsExecutableDir': winBugsExecutableDir,
+      'workingDir': workingDir
+    }
     try {
       console.log(data)
 
@@ -165,7 +153,7 @@ export default function Index() {
       });
 
       const response_data = await response;
-      console.log(response_data);
+      console.log('Response data at postTabValues = ' + response_data);
 
       setIsLoading(false);
 
@@ -181,12 +169,8 @@ export default function Index() {
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const resultData = await postTabValues(allTabValues);
-
-      router.push({
-        pathname: ROUTER.RESULT,
-        query: { data: JSON.stringify(resultData) }
-      });
+      const dummy = await postTabValues(DropdownValues);
+      setResultData(dummy);
     } catch (error) {
       console.error("Error posting data", error);
     }
@@ -237,13 +221,8 @@ export default function Index() {
   };
   
   const handleSaveToFile = () => {
-    // Step 1: Merge the FP input value into dropdownValues
     const dataToSave = {
-      ...dropdownValues,
-      FP: {
-        ...dropdownValues.FP,
-        "FP Input": inputValue, // Include the FP input value
-      },
+      ...DropdownValues
     };
   
     // Step 2: Convert the merged object to a JSON string
@@ -385,8 +364,14 @@ export default function Index() {
                               id="FPInput"
                               type="text"
                               name="FPInput"
-                              value={inputValue} // This updates dynamically
-                              onChange={(e) => setInputValue(e.target.value)} // Keeps it editable
+                              value={DropdownValues['FP']['FP Input']} // This updates dynamically
+                              onChange={(e) => setDropdownValues((prev) => ({
+                                ...prev,
+                                [tab.label]: {
+                                  ...prev[tab.label],
+                                  ['FP Input']: e.target.value,
+                                },
+                              }))} // Keeps it editable
                             />
                           </li>
                         ) : (
@@ -400,7 +385,7 @@ export default function Index() {
                               <label>{item.label}</label>
                               <select
                                     name={item.label}
-                                    value={dropdownValues[tab.label]?.[item.label] || ""}
+                                    value={DropdownValues[tab.label]?.[item.label] || ""}
                                     onChange={(e) =>
                                       setDropdownValues((prev) => ({
                                         ...prev,
