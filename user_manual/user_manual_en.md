@@ -55,11 +55,17 @@ To proceed development and V&V activity evaluation, please refer to **Section 4.
 ![](./images/main_page_attribute_view.png)
 
 ## Submit test results for Statistical Method
-1. Click the **Statistical Methods** tab to start entering testing results.
-2. Enter the **number of executed tests** and the **number of failures**.
-3. Click the **submit** button to obtain the estimated reliability.
-4. View the estimated reliability using statistical testing.
 
+1. **Click the [Statistical Methods] tab.**
+2. **1. Sensitivity Analysis**  
+   - Enter the values for **PFD Goal** and **Confidence Goal**.  
+   - Click the **Submit** button to perform the sensitivity analysis.
+3. **2. Update PFD**  
+   - Enter the **Number of Tests** and **Number of Failures**.  
+   - Click the **Submit** button to calculate the statistical PFD.
+4. **3. Full Analysis and Save (Save JSON)**  
+   - Click the **Run Full Analysis and Save** button to execute the full analysis and download the results in JSON format.
+     
 ![](./images/sst_page_view.png)
 
 ## Configure Reliability Model Parameters
