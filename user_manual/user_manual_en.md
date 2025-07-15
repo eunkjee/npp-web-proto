@@ -96,6 +96,8 @@ Click the **Save** button after adjusting the parameters. The new configuration 
 ## View reliability results
 After submitting the results, you can view the estimated reliability results, specifically the **mean** values and **Markov chain Monte Carlo (MCMC) simulation traces** of the following reliability metrics:
 
+- You can save the reliability calculation results to a file and load the saved file to view the results as a graph.
+  
 - Probability of Failure on Demand (PFD): probablity that safety software failed to take action when the demand condition is satisfied
     - Demand is a plant condition that requires the actuation of safety systems.
     - Eg. demand in reactor protection system: the condition that the trip signal should be produced
