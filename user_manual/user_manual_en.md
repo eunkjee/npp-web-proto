@@ -6,7 +6,8 @@ PLCSoftRel is a web application for reliability measurement for PLC software bas
 2. [Sign in to PLCSoftRel](#sign-in-to-plcsoftrel)
 3. [Submit activity evaluation results for Bayesian Method](#submit-activity-evaluation-results-for-bayesian-method)
 4. [Submit test results for Statistical Method](#submit-test-results-for-statistical-method)
-5. [View reliability results](#view-reliability-results)
+5. [Configure Reliability Model Parameters ](#configure-reliability-model-parameters)
+6. [View reliability results](#view-reliability-results)
 
 ## Sign up to create a PLCSoftRel account
 Open the **PLCSoftRel** app and click the button in the top-right corner.
@@ -60,6 +61,37 @@ To proceed development and V&V activity evaluation, please refer to **Section 4.
 4. View the estimated reliability using statistical testing.
 
 ![](./images/sst_page_view.png)
+
+## Configure Reliability Model Parameters
+
+Click the **Settings** icon in the top-right corner to open the configuration panel for reliability model parameters.
+
+You can configure parameters used in **Bayesian models** and **statistical testing methods** to influence how the reliability is estimated.
+
+### BBN (Bayesian Belief Network) Settings
+
+Adjust the following parameters before running the BBN model:
+
+- **Number of Chains**: Total MCMC chains to run in parallel.
+- **Number of Iterations**: Number of total sampling steps.
+- **Burn-in**: Initial steps to discard to remove bias.
+- **Thinning Rate**: Interval at which samples are collected.
+- **Enable DIC/pD Calculation**: Option to calculate Deviance Information Criterion and effective number of parameters.
+
+### Statistical Method Settings
+
+Set parameters for test-based reliability analysis:
+
+- **Prior PFD**: Prior value of Probability of Failure on Demand.
+- **Confidence Level**: Confidence level used in reliability estimation (e.g., 95%).
+
+### Save Configuration
+
+Click the **Save** button after adjusting the parameters. The new configuration will be applied in all subsequent reliability calculations.
+
+> ⚠️ **Note**: Changing the model parameters may affect the final reliability results. Use with caution based on your reliability assurance strategy.
+> 
+![](./images/settings_icon_view.png)
 
 ## View reliability results
 After submitting the results, you can view the estimated reliability results, specifically the **mean** values and **Markov chain Monte Carlo (MCMC) simulation traces** of the following reliability metrics:
