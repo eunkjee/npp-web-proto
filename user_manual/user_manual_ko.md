@@ -59,10 +59,15 @@ Function Point(FP)는 소프트웨어의 크기와 복잡성을 나타내는 지
 ![](./images/main_page_attribute_view.png)
 
 ## 통계적 기법용 시험 결과 제출
-1. **Statistical Methods** 탭을 클릭합니다.
-2. **수행한 테스트 수**와 **실패 횟수**를 입력합니다.
-3. **Submit** 버튼을 클릭하면 신뢰도 추정 결과가 출력됩니다.
-4. 추정된 신뢰도를 시각적으로 확인합니다.
+1. **[Statistical Methods] 탭을 클릭합니다.**  
+2. **1. 민감도 분석 (Sensitivity Analysis)**  
+   - `PFD Goal`과 `Confidence Goal` 값을 입력합니다.  
+   - `Submit` 버튼을 클릭하여 민감도 분석을 수행합니다.  
+3. **2. PFD 업데이트 (Update PFD)**  
+   - 테스트 횟수(`Number of Tests`)와 실패 횟수(`Number of Failures`)를 입력합니다.  
+   - `Submit` 버튼을 클릭하면 통계 기반 신뢰도(PFD)가 계산됩니다.  
+4. **3. 전체 분석 및 저장 (Full Analysis – Save JSON)**  
+   - `Run Full Analysis and Save` 버튼을 클릭하여 전체 분석을 실행하고 결과를 JSON 형식으로 저장합니다.  
 
 ![](./images/sst_page_view.png)
 
