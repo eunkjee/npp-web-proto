@@ -198,3 +198,38 @@ Execute the following command to insert a dummy user into the table:
 INSERT INTO member (user_email, user_password) VALUES('user@user.com', 'userpassword');
 COMMIT;
 ```
+## Running the Full Application
+
+To run the full **PLCSoftRel** system, you need to launch three separate services: the **frontend (Next.js)**, the **backend API (FastAPI)**, and the **reliability model service (PlumberAPI)**.
+
+We recommend opening **three separate terminals** and running each component individually:
+
+### Terminal 1 – Frontend (Next.js)
+
+```bash
+npm run dev
+```
+
+### Terminal 2 – Backend API (FastAPI)
+
+```bash
+# Windows users (activate virtual environment first)
+.venv\Scripts\activate
+cd server
+uvicorn main:app --reload --host=127.0.0.1 --port=8000
+```
+
+### Terminal 3 – Reliability Model API (PlumberAPI in R)
+
+```bash
+# Windows users (activate virtual environment first)
+.venv\Scripts\activate
+Rscript plumber/app.R
+```
+
+> ⚠️ **Note for Windows Users:**  
+> On Windows, you must **activate the Python virtual environment manually** in each terminal before running Python or R scripts:  
+> `.venv\Scripts\activate`
+
+> 💡 **Tip:**  
+> You can also refer to the provided `commands.txt` file to copy and paste the commands conveniently into each terminal.
