@@ -42,7 +42,7 @@ The number of Function Points (FP) is a measure of the software’s size and com
 1. Enter the **Number of FPs**
 2. Click the **Next** button to proceed.
 
-![](./images/main_page_FP_view.png)
+![](./images/main_page_FP.png)
 
 ### Development and V&V activity evaluation results
 To proceed development and V&V activity evaluation, please refer to **Section 4.2.1 "Attribute Nodes"** and **Appendix B "Detailed Attributes of All Phases"** in the **U.S.NRC report [1]**.
