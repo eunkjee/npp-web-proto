@@ -52,7 +52,7 @@ To proceed development and V&V activity evaluation, please refer to **Section 4.
 2. Click the **Prev** and **Next** button to go to the previous/next section.
 3. After you finish entering the data, click the **Submit** button to submit your results.
 
-![](./images/main_page_attribute_view.png)
+![](./images/main_page_attribute.png)
 
 ## Submit test results for Statistical Method
 
