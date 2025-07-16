@@ -45,7 +45,7 @@ Function Point(FP)는 소프트웨어의 크기와 복잡성을 나타내는 지
 1. **FP 수**를 입력합니다.
 2. **Next** 버튼을 클릭하여 다음 단계로 이동합니다.
 
-![](./images/main_page_FP_view.png)
+![](./images/main_page_FP.png)
 
 ### 개발 및 V&V 활동 평가 결과
 개발 및 V&V 활동 평가는 **미국 NRC 보고서 [1]**의 **섹션 4.2.1** 및 **부록 B**를 참고합니다.
@@ -56,7 +56,7 @@ Function Point(FP)는 소프트웨어의 크기와 복잡성을 나타내는 지
 2. **Prev** 및 **Next** 버튼으로 섹션 간 이동합니다.
 3. 모든 데이터를 입력한 후 **Submit** 버튼을 클릭합니다.
 
-![](./images/main_page_attribute_view.png)
+![](./images/main_page_attribute.png)
 
 ## 통계적 기법용 시험 결과 제출
 1. **[Statistical Methods] 탭을 클릭합니다.**  
